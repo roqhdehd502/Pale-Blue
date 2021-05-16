@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}post_archive_day.html{% endblock %}
+
+{% block content %}
+  <!--본문 제목-->
+  <h1>Post Archives for {{ day|date:"N d, Y" }}</h1>
+  <br><br>
+
+  <!--포스트 된 글 내용 리스트-->
+  <div>
+    <ul>
+      {% for post in object_list %}
+      <li class="h5">
+        {{ post.modify_dt|date:"Y-m-d" }}%emsp;
+        <a href="{{ post.get_absolute_url }}">
+            <strong>{{ post.title }}</strong>
+          </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

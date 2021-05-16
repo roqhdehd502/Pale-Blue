@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}bookmark_list.html{% endblock %}
+
+{% block content %}
+    <h1>Bookmark List</h1>
+    <br>
+
+    <ul>
+        {% for bookmark in object_list %} <!--BookmarkLV 클래스형 뷰에서 넘겨주는 컨텍스트 변수-->
+            <li><a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a></li>
+        {% endfor %} <!--해당 객체의 내용을 순회하면서 title을 화면에 수넛 없는 리스트로 보여준다-->
+    </ul>
+{% endblock %}

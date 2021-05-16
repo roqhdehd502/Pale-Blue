@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}post_archive.html{% endblock %}
+
+{% block content %}
+  <!--본문 제목-->
+  <h1>Post Archives until {% now "N d, Y" %}</h1>
+
+  <!--하위 연도 메뉴-->
+  {% for date in date_list %}
+  <a href="{% url 'blog:post_year_archive' date|date:'Y' %}"
+    class="btn btn-outline-primary btn-sm mx-1">
+    {{ date|date:"Y" }}년
+  </a>
+  {% endfor %}
+
+  <br><br>
+
+  <!--포스트 된 글 내용 리스트-->
+  <div>
+    <ul>
+      {% for post in object_list %}
+      <li class="h5">
+        {{ post.modify_dt|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
+        <a href="{{ post.get_absolute_url }}">
+          <strong>{{ post.title }}</strong>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
