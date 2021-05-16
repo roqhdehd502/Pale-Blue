@@ -25,7 +25,22 @@
   <br>
 
   <!--게시글 내용-->
-  <div>
+  <div class="body">
     {{ object.content|linebreaks }}
+  </div>
+
+  <br>
+
+  <div>
+    <b>TAGS</b> <i class="fas fa-tag"></i>
+    {% load taggit_templatetags2_tags %}
+    {% get_tags_for_object object as "tags" %}
+    {% for tag in tags %}
+    <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+    {% endfor %}
+    &emsp;
+    <a href="{% url 'blog:tag_cloud' %}">
+      <span class="btn bnt-info btn-sm">TagCloud</span>
+    </a>
   </div>
 {% endblock %}

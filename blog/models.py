@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse # URL 패턴을 만들어주는 장고 내장 함수
+from taggit.managers import TaggableManager # 태그 매니저
 
 # Create your models here.
 class Post(models.Model):
@@ -9,6 +10,7 @@ class Post(models.Model):
     content = models.TextField('CONTENT') # 글내용
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True) # 작성일자
     modify_dt = models.DateTimeField('MODIFY DATE', auto_now=True) # 수정일자
+    tags = TaggableManager(blank=True) # 태그
 
     class Meta: # 필드 속성 외 필요한 파라미터를 설정하는 내부 클래스
         verbose_name = 'post' # 테이블의 단수 별칭 설정
