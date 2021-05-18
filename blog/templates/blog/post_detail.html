@@ -2,45 +2,83 @@
 
 {% block title %}post_detail.html{% endblock %}
 
+{% block extra-style %}
+<style>
+  .post-body {
+    width: 80%;
+    margin: auto;
+    font-family: "Lucia Grande", Verdana, Arial, sans-serif;
+    font-size: 16px;
+  }
+</style>
+{% endblock %}
+
 {% block content %}
-  <h2>{{ object.title }}</h2>
+  <div class="post-body">
+    <h2>{{ object.title }}</h2>
 
-  <!--블로그 이전글/다음글 넘기는 링크 버튼-->
-  <p>
-    {% if object.get_next %}
-    <a href="{{ object.get_next.get_absolute_url }}" title="View previous post">
-      <i class="fas fa-arrow-circle-left"></i> {{ object.get_next }}
-    </a>
-    {% endif %}
+    <!--블로그 이전글/다음글 넘기는 링크 버튼-->
+    <p>
+      {% if object.get_next %}
+      <a href="{{ object.get_next.get_absolute_url }}" title="View previous post">
+        <i class="fas fa-arrow-circle-left"></i> {{ object.get_next }}
+      </a>
+      {% endif %}
 
-    {% if object.get_previous %}|
-    <a href="{{ object.get_previous.get_absolute_url }}" title="View next post">
-      {{ object.get_previous }} <i class="fas fa-arrow-circle-right"></i>
-    </a>
-    {% endif %}
-  </p>
+      {% if object.get_previous %}|
+      <a href="{{ object.get_previous.get_absolute_url }}" title="View next post">
+        {{ object.get_previous }} <i class="fas fa-arrow-circle-right"></i>
+      </a>
+      {% endif %}
+    </p>
 
-  <!--게시글 수정날짜-->
-  <p>{{ object.modify_dt|date:"j F Y" }}</p> <!--장고에서 제공하는 날짜 포맷-->
-  <br>
+    <!--게시글 수정날짜-->
+    <p>{{ object.modify_dt|date:"j F Y" }}</p> <!--장고에서 제공하는 날짜 포맷-->
+    <br>
 
-  <!--게시글 내용-->
-  <div class="body">
-    {{ object.content|linebreaks }}
+    <!--게시글 내용-->
+    <div class="body">
+      {{ object.content|linebreaks }}
+    </div>
+
+    <br>
+
+    <div>
+      <b>TAGS</b> <i class="fas fa-tag"></i>
+      {% load taggit_templatetags2_tags %}
+      {% get_tags_for_object object as "tags" %}
+      {% for tag in tags %}
+      <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+      {% endfor %}
+      &emsp;
+      <a href="{% url 'blog:tag_cloud' %}">
+        <span class="btn bnt-info btn-sm">TagCloud</span>
+      </a>
+    </div>
+
+    <br>
+
+    <div id="disqus_thread"></div>
   </div>
+{% endblock %}
 
-  <br>
-
-  <div>
-    <b>TAGS</b> <i class="fas fa-tag"></i>
-    {% load taggit_templatetags2_tags %}
-    {% get_tags_for_object object as "tags" %}
-    {% for tag in tags %}
-    <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
-    {% endfor %}
-    &emsp;
-    <a href="{% url 'blog:tag_cloud' %}">
-      <span class="btn bnt-info btn-sm">TagCloud</span>
-    </a>
-  </div>
+{% block extra-script %}
+  <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      /*
+      var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://pydjango-web-programming-qfkwx6pvcw.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 {% endblock %}

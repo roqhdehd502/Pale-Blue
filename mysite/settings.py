@@ -140,4 +140,9 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TAGGIT_CASE_INSENSITIVE = True
-TAGGIT_LIMIT = 50
+TAGGIT_LIMIT = 50 # default = 10
+
+# 댓글 달기
+
+DISQUS_SHORTNAME = 'pydjango-web-programming'
+DISQUS_MY_DOMAIN = 'http://localhost:8000'
