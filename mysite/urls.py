@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from mysite.views import HomeView
+from django.conf.urls.static import static # 정적 파일처리 모듈
+from django.conf import settings # setting.py에서 정의한 항목들을 담고 있는 객체를 가져오는 모듈
 
 #from bookmark.views import BookmarkLV, BookmarkDV # 뷰 모듈의 관련 클래스 임포트
 
@@ -25,8 +27,5 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'), # 홈 페이지
     path('bookmark/', include('bookmark.urls')), # 북마크 페이지
     path('blog/', include('blog.urls')), # 블로그 페이지
-
-    # class-based views
-    #path('bookmark/', BookmarkLV.as_view(), name='index'), # 해당 url을 처리할 뷰 클래스를 BookmarkLV로 지정
-    #path('bookmark/<int:pk>/', BookmarkDV.as_view(), name='detail'), # 해당 url을 처리할 뷰 클래스를 BookmarkDV로 지정
-]
+    path('photo/', include('photo.urls')), # 사진 페이지
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # 기존 URL패턴에 static() 함수가 반환하는 URL 패턴을 추가

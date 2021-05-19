@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
+    'photo.apps.PhotoConfig',
 ]
 
 MIDDLEWARE = [
@@ -134,9 +135,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Media Setting
-
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 TAGGIT_CASE_INSENSITIVE = True
