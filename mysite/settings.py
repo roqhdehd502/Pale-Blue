@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
     'photo.apps.PhotoConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -138,10 +139,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# 태그 달기
 TAGGIT_CASE_INSENSITIVE = True
 TAGGIT_LIMIT = 50 # default = 10
 
 # 댓글 달기
-
 DISQUS_SHORTNAME = 'pydjango-web-programming'
 DISQUS_MY_DOMAIN = 'http://localhost:8000'
+
+# 로그인 인증
+#LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'

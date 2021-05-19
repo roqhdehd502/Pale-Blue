@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from mysite.views import HomeView
+from mysite.views import HomeView, UserCreateView, UserCreateDoneTV
 from django.conf.urls.static import static # 정적 파일처리 모듈
 from django.conf import settings # setting.py에서 정의한 항목들을 담고 있는 객체를 가져오는 모듈
 
@@ -28,4 +28,7 @@ urlpatterns = [
     path('bookmark/', include('bookmark.urls')), # 북마크 페이지
     path('blog/', include('blog.urls')), # 블로그 페이지
     path('photo/', include('photo.urls')), # 사진 페이지
+    path('accounts/', include('django.contrib.auth.urls')), # 장고의 URLconf 가져오기
+    path('accounts/register/', UserCreateView.as_view(), name='register'), # 가입처리 URL
+    path('accounts/register/done/', UserCreateDoneTV.as_view(), name='register_done'), # 계정생성완료 URL
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # 기존 URL패턴에 static() 함수가 반환하는 URL 패턴을 추가

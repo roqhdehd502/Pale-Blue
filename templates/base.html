@@ -46,6 +46,29 @@
                 {% csrf_token %} <!--csrf 토큰 적용-->
                 <input class="form-control mr-sm-2" type="search" placeholder="global search" name="search_word"> <!--검색 인풋-->
             </form>
+            <ul class="navbar-nav ml-5 mr-5">
+                <li class="nav-item dropdown mx-1 btn btn-primary">
+                    {% if user.is_active %} <!--로그인 상태일때-->
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                        <i class="fas fa-user"></i>&ensp;
+                        {% firstof user.get_short_name user.get_username %}&ensp;
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+                    </div>
+                    {% else %} <!--로그인 상태가 아닐때-->
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                        <i class="fas fa-user"></i>&ensp;
+                        Anonymous&ensp;
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                        <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                    </div>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
     </nav>
 
