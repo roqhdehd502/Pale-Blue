@@ -32,6 +32,26 @@
                 <li class="nav-item mx-1 btn btn-primary">
                     <a class="nav-link text-white" href="{% url 'photo:index' %}">PHOTO</a> <!--사진 페이지로 이동-->
                 </li>
+                <li class="nav-item dropdown mx-1 btn btn-primary">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">Add</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'bookmark:add' %}">Bookmark</a>
+                        <a class="dropdown-item" href="{% url 'blog:add' %}">Post</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="">Album</a>
+                        <a class="dropdown-item" href="">Photo</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown mx-1 btn btn-primary">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">Change</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'bookmark:change' %}">Bookmark</a>
+                        <a class="dropdown-item" href="{% url 'blog:change' %}">Post</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="">Album</a>
+                        <a class="dropdown-item" href="">Photo</a>
+                    </div>
+                </li>
                 <li class="nav-item mx-1 btn btn-primary">
                     <a class="nav-link text-white" href="#" data-toggle="dropdown">UTIL</a> <!--유틸 페이지로 이동-->
                     <div class="dropdown-menu">
