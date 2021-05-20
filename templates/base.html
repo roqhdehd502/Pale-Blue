@@ -33,23 +33,23 @@
                     <a class="nav-link text-white" href="{% url 'photo:index' %}">PHOTO</a> <!--사진 페이지로 이동-->
                 </li>
                 <li class="nav-item dropdown mx-1 btn btn-primary">
-                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">Add</a>
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">ADD</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'bookmark:add' %}">Bookmark</a>
-                        <a class="dropdown-item" href="{% url 'blog:add' %}">Post</a>
+                        <a class="dropdown-item" href="{% url 'bookmark:add' %}">BOOKMARK</a>
+                        <a class="dropdown-item" href="{% url 'blog:add' %}">POST</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="">Album</a>
-                        <a class="dropdown-item" href="">Photo</a>
+                        <a class="dropdown-item" href="{% url 'photo:album_add' %}">ALBUM</a>
+                        <a class="dropdown-item" href="{% url 'photo:photo_add' %}">PHOTO</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown mx-1 btn btn-primary">
-                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">Change</a>
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">CHANGE</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'bookmark:change' %}">Bookmark</a>
-                        <a class="dropdown-item" href="{% url 'blog:change' %}">Post</a>
+                        <a class="dropdown-item" href="{% url 'bookmark:change' %}">BOOKMARK</a>
+                        <a class="dropdown-item" href="{% url 'blog:change' %}">POST</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="">Album</a>
-                        <a class="dropdown-item" href="">Photo</a>
+                        <a class="dropdown-item" href="{% url 'photo:album_change' %}">ALBUM</a>
+                        <a class="dropdown-item" href="{% url 'photo:photo_change' %}">PHOTO</a>
                     </div>
                 </li>
                 <li class="nav-item mx-1 btn btn-primary">
