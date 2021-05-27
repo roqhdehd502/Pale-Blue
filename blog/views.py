@@ -22,7 +22,7 @@ class PostLV(ListView):
     model = Post
     template_name = 'blog/post_all.html'
     context_object_name = 'posts'
-    paginate_by = 2
+    paginate_by = 5
 
 # DetailView
 class PostDV(DetailView):
@@ -95,8 +95,7 @@ class SearchFormView(FormView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'slug', 'description', 'content', 'tags']
-    #fields = ['title', 'description', 'content', 'tags'] # field 속성에서 제외해 slug 필드를 처리할 수도 있다
+    fields = ['title', 'slug', 'description', 'content', 'tags', 'category']
     initial = {'slug': 'auto-filling-do-not-input'}
     success_url = reverse_lazy('blog:index')
 
@@ -112,7 +111,7 @@ class PostChangeLV(LoginRequiredMixin, ListView):
 
 class PostUpdateView(OwnerOnlyMixin, UpdateView):
     model = Post
-    fields = ['title', 'slug', 'description', 'content', 'tags']
+    fields = ['title', 'slug', 'description', 'content', 'tags', 'category']
     success_url = reverse_lazy('blog:index')
 
 class PostDeleteView(OwnerOnlyMixin, DeleteView):

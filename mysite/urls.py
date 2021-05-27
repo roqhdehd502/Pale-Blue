@@ -19,8 +19,6 @@ from mysite.views import HomeView, UserCreateView, UserCreateDoneTV
 from django.conf.urls.static import static # 정적 파일처리 모듈
 from django.conf import settings # setting.py에서 정의한 항목들을 담고 있는 객체를 가져오는 모듈
 
-#from bookmark.views import BookmarkLV, BookmarkDV # 뷰 모듈의 관련 클래스 임포트
-
 urlpatterns = [
     # path(): route, view 2개의 필수 인자와 kwargs, name 2개의 선택 인자를 받는데 여기서, name 인자값은 템플릿 파일에서 사용
     path('admin/', admin.site.urls), # Admin 사이트에 대한 url 정의

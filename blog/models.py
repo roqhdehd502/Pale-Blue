@@ -7,13 +7,14 @@ from django.utils.text import slugify
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(verbose_name='TITLE', max_length=50) # TITLE이란 별칭의 char타입 50자 제한 필드 변수
-    slug = models.SlugField('SLUG', unique=True, allow_unicode=True, help_text='one word for title alias.') # SLUG란 별칭의 유니크 키 옵션을 가진 문구
-    description = models.CharField('DESCRIPTION', max_length=100, blank=True, help_text='simple description text.') # 글내용 한 줄 설명
+    slug = models.SlugField('SLUG', unique=True, allow_unicode=True, help_text='해당 별칭을 지정하세요.') # SLUG란 별칭의 유니크 키 옵션을 가진 문구
+    description = models.CharField('DESCRIPTION', max_length=100, blank=True, help_text='내용을 입력하세요.') # 글내용 한 줄 설명
     content = models.TextField('CONTENT') # 글내용
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True) # 작성일자
     modify_dt = models.DateTimeField('MODIFY DATE', auto_now=True) # 수정일자
     tags = TaggableManager(blank=True) # 태그
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='OWNER', blank=True, null=True) # 작성자
+    category = models.CharField('CATEGORY', max_length=20, null=True) # 카테고리
 
     class Meta: # 필드 속성 외 필요한 파라미터를 설정하는 내부 클래스
         verbose_name = 'post' # 테이블의 단수 별칭 설정

@@ -2,85 +2,101 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %} DJango Web Programming {% endblock %}</title> <!--block 태그를 통해 공통되는 부분에 적용한다-->
+    <title>{% block title %} Pale Blue&nbsp;:&nbsp; {% endblock %}</title> <!--block 태그를 통해 공통되는 부분에 적용한다-->
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- sweeper 컨테이너 크기 설정 -->
+    <style type="text/css">
+        .swiper-container {
+            max-width: 800px;
+            max-height: 400px;
+            min-width: 300px;
+            min-height: 150px;
+            width: auto;
+            height: auto;
+        }
+    </style>
+
+    <!-- a 태그 텍스트 색상 설정 -->
+    <style type="text/css">
+        a:link { text-decoration: none; color: black; }
+        a:visited { text-decoration: none; color: black; }
+        a:active { text-decoration: none; color: black; }
+        a:hover { text-decoration: underline; color: black; }
+    </style>
 
     {% block extra-style %}{% endblock %}
 </head>
 <body style="padding-top:90px;">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-        <span class="navbar-brand mx-5 mb-0 font-weight-bold font-italic">Django - Python Web Programming</span>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top" style="border-bottom: 5px solid #afeeee;">
+        <span class="navbar-brand mx-5 mb-0">
+            <a class="nav-link text-white font-weight-bold" href="{% url 'home' %}">Pale Blue</a>
+        </span>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" align="center">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item mx-1 btn btn-primary">
-                    <a class="nav-link text-white" href="{% url 'home' %}">HOME</a> <!--첫 페이지로 이동-->
+                <li class="nav-item mx-1 btn btn-info">
+                    <a class="nav-link text-white" href="{% url 'home' %}">Home</a> <!--첫 페이지로 이동-->
                 </li>
-                <li class="nav-item mx-1 btn btn-primary">
-                    <a class="nav-link text-white" href="{% url 'bookmark:index' %}">BOOKMARK</a> <!--북마크 페이지로 이동-->
+                <li class="nav-item mx-1 btn btn-info">
+                    <a class="nav-link text-white" href="{% url 'blog:index' %}">Community</a> <!--커뮤니티 페이지로 이동-->
                 </li>
-                <li class="nav-item mx-1 btn btn-primary">
-                    <a class="nav-link text-white" href="{% url 'blog:index' %}">BLOG</a> <!--블로그 페이지로 이동-->
+                <li class="nav-item mx-1 btn btn-info">
+                    <a class="nav-link text-white" href="{% url 'photo:index' %}">Album</a> <!--앨범 페이지로 이동-->
                 </li>
-                <li class="nav-item mx-1 btn btn-primary">
-                    <a class="nav-link text-white" href="{% url 'photo:index' %}">PHOTO</a> <!--사진 페이지로 이동-->
-                </li>
-                <li class="nav-item dropdown mx-1 btn btn-primary">
-                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">ADD</a>
+                <li class="nav-item dropdown mx-1 btn btn-info">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">Add</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'bookmark:add' %}">BOOKMARK</a>
-                        <a class="dropdown-item" href="{% url 'blog:add' %}">POST</a>
+                        {% if user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'blog:add' %}">Post</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'photo:album_add' %}">ALBUM</a>
-                        <a class="dropdown-item" href="{% url 'photo:photo_add' %}">PHOTO</a>
+                        <a class="dropdown-item" href="{% url 'photo:album_add' %}">Album</a>
+                        <a class="dropdown-item" href="{% url 'photo:photo_add' %}">Track</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'blog:add' %}">Post</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown mx-1 btn btn-primary">
-                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">CHANGE</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'bookmark:change' %}">BOOKMARK</a>
-                        <a class="dropdown-item" href="{% url 'blog:change' %}">POST</a>
+                <li class="nav-item dropdown mx-1 btn btn-info">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">Modify</a>
+                    <div class="dropdown-menu text-info">
+                        {% if user.is_superuser %}
+                        <a class="dropdown-item" href="{% url 'blog:change' %}">Post</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'photo:album_change' %}">ALBUM</a>
-                        <a class="dropdown-item" href="{% url 'photo:photo_change' %}">PHOTO</a>
+                        <a class="dropdown-item" href="{% url 'photo:album_change' %}">Album</a>
+                        <a class="dropdown-item" href="{% url 'photo:photo_change' %}">Track</a>
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'blog:change' %}">Post</a>
                     </div>
                 </li>
-                <li class="nav-item mx-1 btn btn-primary">
-                    <a class="nav-link text-white" href="#" data-toggle="dropdown">UTIL</a> <!--유틸 페이지로 이동-->
+                <li class="nav-item dropdown mx-1 btn btn-info">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">Util</a> <!--유틸 페이지로 이동-->
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{% url 'admin:index' %}">ADMIN</a> <!--어드민 페이지로 이동-->
+                        {% if user.is_superuser %} <!-- 유저가 어드민일때 -->
+                        <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a> <!--어드민 페이지로 이동-->
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'blog:post_archive' %}">ARCHIVE</a> <!--아카이브 페이지로 이동-->
-                        <a class="dropdown-item" href="{% url 'blog:search' %}">SEARCH</a> <!--검색 페이지로 이동-->
+                        <a class="dropdown-item" href="{% url 'blog:post_archive' %}">Archive</a> <!--아카이브 페이지로 이동-->
+                        {% endif %}
+                        <a class="dropdown-item" href="{% url 'blog:search' %}">Search</a> <!--검색 페이지로 이동-->
                     </div>
                 </li>
             </ul>
-            <form class="form-inline my-2" action="" method="post">
-                {% csrf_token %} <!--csrf 토큰 적용-->
-                <input class="form-control mr-sm-2" type="search" placeholder="global search" name="search_word"> <!--검색 인풋-->
-            </form>
+
             <ul class="navbar-nav ml-5 mr-5">
-                <li class="nav-item dropdown mx-1 btn btn-primary">
+                <li class="nav-item dropdown mx-1 btn btn-info">
                     {% if user.is_active %} <!--로그인 상태일때-->
                     <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
-                        <i class="fas fa-user"></i>&ensp;
                         {% firstof user.get_short_name user.get_username %}&ensp;
                     </a>
                     <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">My Page</a>
                         <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
                     </div>
                     {% else %} <!--로그인 상태가 아닐때-->
                     <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
-                        <i class="fas fa-user"></i>&ensp;
-                        Anonymous&ensp;
+                        로그인하기&ensp;
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{% url 'login' %}">Login</a>
@@ -96,8 +112,105 @@
         {% block content %}{% endblock %}
     </div>
 
-    {% block footer %}{% endblock %}
+    <!-- footer -->
+    <footer class="bg-info text-white" style="border-top: 5px solid #afeeee;">
+        <br style="margin:10px 0 10px 0px;">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row justify-content-center" align="center">
+                    <div class="col-md-2 footer_widget">
+                        <div class="inner">
+                            <a href="{% url 'home' %}">Home</a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 footer_widget">
+                        <div class="inner">
+                            <a href="{% url 'photo:index' %}">Album</a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 footer_widget">
+                        <div class="inner">
+                            <a href="{% url 'blog:index' %}">Community</a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 footer_widget">
+                        <div class="inner">
+                            <a href="https://github.com/roqhdehd502">Developer's Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    {% block extra-script %}{% endblock %}
+        <br style="margin:10px 0 10px 0px;">
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row" align="center">
+                    <div class="col-lg-12">
+                        <div>  <!--class="copyright-txt"-->
+                            Copyright&copy; 2021 NMW. All Rights Reserved.<br>
+                            <a href="http://bootstrapk.com/">
+                                BootStrap
+                            </a>
+                            &nbsp;|&nbsp;
+                            <a href="https://www.w3schools.com/">
+                                w3schools
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br style="margin:10px 0 10px 0px;">
+    </footer>
+
+    <!-- 제이쿼리, 부트스트랩, AJAX 설정 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- 구글 머터리얼 디자인 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- swiper 슬라이드 바 -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper-container', {
+          // Optional parameters
+          direction: 'vertical',
+          loop: true,
+
+          // If we need pagination
+          pagination: {
+            el: '.swiper-pagination',
+          },
+
+          // Navigation arrows
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+
+          // And if we need scrollbar
+          scrollbar: {
+            el: '.swiper-scrollbar',
+          },
+
+          autoplay: {
+            delay: 7000,
+          },
+        });
+    </script>
+
+    {% block extra-script %}
+    {% endblock %}
 </body>
 </html>

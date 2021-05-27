@@ -3,24 +3,62 @@
 {% block title %}post_all.html{% endblock %}
 
 {% block content %}
-    <h1>Blog List</h1>
-    <br>
+    <div class="row" align="center">
+        <h2>Community</h2>
+    </div>
+
+    <hr style="margin:10px 0 10px 0px;">
+
+    <div class="row" align="center">
+        <div class="col-md-3">
+            <h5><b>글분류</b></h5>
+        </div>
+        <div class="col-md-3">
+            <h5><b>글제목</b></h5>
+        </div>
+        <div class="col-md-3">
+            <h5><b>작성일</b></h5>
+        </div>
+        <div class="col-md-3">
+            <h5><b>글쓴이</b></h5>
+        </div>
+        <hr>
+    </div>
+
+    <hr style="margin:10px 0 10px 0px;">
+
     <!--등록된 게시글 리스트-->
     {% for post in posts %}
-        <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-        {{ post.modify_dt|date:"N d, Y" }}
-        <p>{{ post.description }}</p>
+    <div class="row" align="center">
+        <div class="col-md-3">
+            {{ post.category }}
+        </div>
+        <div class="col-md-3">
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </div>
+        <div class="col-md-3">
+            {{ post.modify_dt|date:"Y.m.d" }}
+        </div>
+        <div class="col-md-3">
+            {% if post.owner == user.get_username and user.is_superuser %}
+                관리자
+            {% else %}
+                {{ post.owner }}
+            {% endif %}
+        </div>
+    </div>
+
+    <hr style="margin:10px 0 10px 0px;">
     {% endfor %}
-    <br>
 
     <!--페이징-->
-    <div>
+    <div align="center" align="center">
         <span>
             {% if page_obj.has_previous %}
                 <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
             {% endif %}
 
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            {{ page_obj.number }}&nbsp;/&nbsp;{{ page_obj.paginator.num_pages }}
 
             {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}">NextPage</a>

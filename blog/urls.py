@@ -35,7 +35,6 @@ urlpatterns = [
     path('archive/<int:year>/', views.PostYAV.as_view(), name='post_year_archive'),
 
     # Example : /blog/archive/2019/nov/
-    #re_path(r'^archive/(?<year>)/(?P<month>[-\w])', views.PostDV.as_view(), name='post_month_archive'),
     path('archive/<int:year>/<str:month>/', views.PostMAV.as_view(), name='post_month_archive'),
 
     # Example : /blog/archive/2019/nov/10

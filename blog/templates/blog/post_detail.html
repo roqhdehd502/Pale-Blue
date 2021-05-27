@@ -3,19 +3,38 @@
 {% block title %}post_detail.html{% endblock %}
 
 {% block extra-style %}
-<style>
+<!--<style>
   .post-body {
     width: 80%;
     margin: auto;
-    font-family: "Lucia Grande", Verdana, Arial, sans-serif;
     font-size: 16px;
   }
-</style>
+</style>-->
 {% endblock %}
 
 {% block content %}
   <div class="post-body">
+    <!--게시글 제목-->
     <h2>{{ object.title }}</h2>
+
+    <!--게시글 요약 정보-->
+    <p>
+      {% if object.owner %}
+        관리자&nbsp;|&nbsp;
+      {% else %}
+        {{ object.owner }}&nbsp;|&nbsp;
+      {% endif %}
+      {{ object.modify_dt|date:"j F Y" }}&nbsp;|&nbsp;
+    </p>
+
+    <hr>
+
+    <!--게시글 내용-->
+    <div class="body">
+      {{ object.content|linebreaks }}
+    </div>
+
+    <hr>
 
     <!--블로그 이전글/다음글 넘기는 링크 버튼-->
     <p>
@@ -32,15 +51,6 @@
       {% endif %}
     </p>
 
-    <!--게시글 수정날짜-->
-    <p>{{ object.modify_dt|date:"j F Y" }}</p> <!--장고에서 제공하는 날짜 포맷-->
-    <br>
-
-    <!--게시글 내용-->
-    <div class="body">
-      {{ object.content|linebreaks }}
-    </div>
-
     <br>
 
     <div>
@@ -56,7 +66,7 @@
       </a>
     </div>
 
-    <br>
+    <hr>
 
     <div id="disqus_thread"></div>
   </div>

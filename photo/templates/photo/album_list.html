@@ -9,11 +9,8 @@
 }
 </style>
 {% endblock %}
-
-{% block content %} 
-
-    {% for item in object_list %} 
-
+{% block content %}
+    {% for item in object_list %}
     <div class="mt-5"> 
         <a class="h2" href="{% url 'photo:album_detail' item.id %}">
             {{ item.name }}</a>&emsp;
@@ -33,8 +30,5 @@
         </div>
         {% endfor %} 
     </div>
-
-    {% endfor %} 
-
+    {% endfor %}
 {% endblock %}
-
