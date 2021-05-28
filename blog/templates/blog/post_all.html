@@ -25,9 +25,32 @@
         <hr>
     </div>
 
-    <hr style="margin:10px 0 10px 0px;">
+    <hr style="margin:10px 0px 10px 0px;">
 
     <!--등록된 게시글 리스트-->
+    <!--공지사항-->
+    {% for post in posts %}
+    {% if post.category == "공지사항" %}
+    <div class="row" align="center" style="font-weight:bold;">
+        <div class="col-md-3">
+            {{ post.category }}
+        </div>
+        <div class="col-md-3">
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </div>
+        <div class="col-md-3">
+            {{ post.modify_dt|date:"Y.m.d" }}
+        </div>
+        <div class="col-md-3">
+            관리자
+        </div>
+    </div>
+
+    <hr style="margin:10px 0 10px 0px;">
+    {% endif %}
+    {% endfor %}
+    <!--인기글(공지사항 제외)-->
+    <!--게시글 총합-->
     {% for post in posts %}
     <div class="row" align="center">
         <div class="col-md-3">
@@ -40,7 +63,7 @@
             {{ post.modify_dt|date:"Y.m.d" }}
         </div>
         <div class="col-md-3">
-            {% if post.owner == user.get_username and user.is_superuser %}
+            {% if post.owner == "309al" %}
                 관리자
             {% else %}
                 {{ post.owner }}

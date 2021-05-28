@@ -23,7 +23,8 @@ class Post(models.Model):
         ordering = ('-modify_dt',) # 모델 객체의 리스트 출력 시 modify_dt 컬럼을 기준으로 내림차순 정렬
 
     def __str__(self):
-        return self.title
+        return '[{}] {}'.format(self.title, self.owner)
+        #return self.title
 
     def get_absolute_url(self): # 해당 메소드가 정의된 객체를 지칭하는 URL을 반환
         return reverse('blog:post_detail', args=(self.slug,))
