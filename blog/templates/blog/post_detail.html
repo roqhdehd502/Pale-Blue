@@ -3,16 +3,10 @@
 {% block title %}post_detail.html{% endblock %}
 
 {% block extra-style %}
-<!--<style>
-  .post-body {
-    width: 80%;
-    margin: auto;
-    font-size: 16px;
-  }
-</style>-->
 {% endblock %}
 
 {% block content %}
+  <span style="display:none;">{{ object.update_counter }}</span>
   <div class="post-body">
     <!--게시글 제목-->
     <h2>{{ object.title }}</h2>

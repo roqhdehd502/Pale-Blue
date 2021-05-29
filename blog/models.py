@@ -15,6 +15,8 @@ class Post(models.Model):
     tags = TaggableManager(blank=True) # 태그
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='OWNER', blank=True, null=True) # 작성자
     category = models.CharField('CATEGORY', max_length=20, null=True) # 카테고리
+    hit = models.PositiveIntegerField(default=0, null=True) # 조회수
+    #like = models.PositiveIntegerField(default=0, null=True) # 추천수
 
     class Meta: # 필드 속성 외 필요한 파라미터를 설정하는 내부 클래스
         verbose_name = 'post' # 테이블의 단수 별칭 설정
@@ -24,7 +26,6 @@ class Post(models.Model):
 
     def __str__(self):
         return '[{}] {}'.format(self.title, self.owner)
-        #return self.title
 
     def get_absolute_url(self): # 해당 메소드가 정의된 객체를 지칭하는 URL을 반환
         return reverse('blog:post_detail', args=(self.slug,))
@@ -34,6 +35,9 @@ class Post(models.Model):
 
     def get_next(self): # -modify_dt 컬럼을 기준으로 다음 포스트를 반환
         return self.get_next_by_modify_dt()
+
+    def update_counter(self):
+        return self.hit + 1
 
     def save(self, *args, **kwargs): # 모델 객체의 내용을 데이터베이스에 저장
         self.slug = slugify(self.title, allow_unicode=True)
