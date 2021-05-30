@@ -22,7 +22,7 @@ class Post(models.Model):
         verbose_name = 'post' # 테이블의 단수 별칭 설정
         verbose_name_plural = 'posts' # 테이블의 복수 별칭 설정
         db_table = 'blog_posts' # 데이터베이스에 저장되는 테이블의 이름
-        ordering = ('-modify_dt',) # 모델 객체의 리스트 출력 시 modify_dt 컬럼을 기준으로 내림차순 정렬
+        ordering = ('-create_dt',) # 모델 객체의 리스트 출력 시 create_dt 컬럼을 기준으로 내림차순 정렬
 
     def __str__(self):
         return '[{}] {}'.format(self.title, self.owner)
@@ -30,14 +30,16 @@ class Post(models.Model):
     def get_absolute_url(self): # 해당 메소드가 정의된 객체를 지칭하는 URL을 반환
         return reverse('blog:post_detail', args=(self.slug,))
 
-    def get_previous(self): # 메소드 내에서 장고의 내장 함수인 get_privious_by_modify_dt()를 호출
-        return self.get_previous_by_modify_dt()
+    def get_previous(self): # 메소드 내에서 장고의 내장 함수인 get_privious_by_create_dt()를 호출
+        return self.get_previous_by_create_dt()
 
-    def get_next(self): # -modify_dt 컬럼을 기준으로 다음 포스트를 반환
-        return self.get_next_by_modify_dt()
+    def get_next(self): # -create_dt 컬럼을 기준으로 다음 포스트를 반환
+        return self.get_next_by_create_dt()
 
+    @property
     def update_counter(self):
-        return self.hit + 1
+        self.hit = self.hit + 1
+        self.save()
 
     def save(self, *args, **kwargs): # 모델 객체의 내용을 데이터베이스에 저장
         self.slug = slugify(self.title, allow_unicode=True)

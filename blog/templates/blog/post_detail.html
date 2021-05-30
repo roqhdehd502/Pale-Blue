@@ -8,42 +8,55 @@
 {% block content %}
   <span style="display:none;">{{ object.update_counter }}</span>
   <div class="post-body">
-    <!--게시글 제목-->
-    <h2>{{ object.title }}</h2>
+    <!--게시글 카테고리 및 제목-->
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          {{ object.category }}&nbsp;|&nbsp;
+          {{ object.title }}
+        </h3>
+      </div>
+    </div>
 
     <!--게시글 요약 정보-->
-    <p>
-      {% if object.owner == "309al" %}
-        관리자&nbsp;|&nbsp;
-      {% else %}
-        {{ object.owner }}&nbsp;|&nbsp;
-      {% endif %}
-      {{ object.modify_dt|date:"j F Y" }}&nbsp;|&nbsp;
-    </p>
-
-    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        {% if object.owner == "309al" %}
+          관리자
+        {% else %}
+          {{ object.owner }}
+        {% endif %}
+      </div>
+    </div>
+    <br style="margin: 10px 0px 10px 0px;">
+    <div class="row" style="background-color:#f0f0f0; border-top: 3px solid #afeeee; padding: 5px 0px 5px 0px;">
+      <div class="col-md-12">
+        {{ object.create_dt|date:"Y.m.d" }}&nbsp;&nbsp;|&nbsp;&nbsp;
+        조회수&nbsp;:&nbsp;{{ object.hit }}
+      </div>
+    </div>
 
     <!--게시글 내용-->
     <div class="body">
-      {{ object.content|linebreaks }}
+      <p style="white-space: normal;">{{ object.content|linebreaks }}</p>
     </div>
 
-    <hr>
-
     <!--블로그 이전글/다음글 넘기는 링크 버튼-->
-    <p>
-      {% if object.get_next %}
-      <a href="{{ object.get_next.get_absolute_url }}" title="View previous post">
-        <i class="fas fa-arrow-circle-left"></i> {{ object.get_next }}
-      </a>
-      {% endif %}
+    <div class="row">
+      <div class="col-md-12" style="background-color:#f0f0f0; padding: 5px 0px 5px 0px;">
+        {% if object.get_next %}
+        <a href="{{ object.get_next.get_absolute_url }}" title="View previous post">
+          <i class="fas fa-arrow-circle-left"></i> {{ object.get_next }}
+        </a>
+        {% endif %}
 
-      {% if object.get_previous %}|
-      <a href="{{ object.get_previous.get_absolute_url }}" title="View next post">
-        {{ object.get_previous }} <i class="fas fa-arrow-circle-right"></i>
-      </a>
-      {% endif %}
-    </p>
+        {% if object.get_previous %}|
+        <a href="{{ object.get_previous.get_absolute_url }}" title="View next post">
+          {{ object.get_previous }} <i class="fas fa-arrow-circle-right"></i>
+        </a>
+        {% endif %}
+      </div>
+    </div>
 
     <br>
 
