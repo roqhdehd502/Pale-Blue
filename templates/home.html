@@ -1,30 +1,50 @@
 {% extends 'base.html' %} <!--base.html 파일을 상속 받는다-->
 
-{% load static %}
-
 {% block title %} Pale Blue&nbsp;:&nbsp;main {% endblock %} <!--title 블록을 재정의-->
 
 {% block extra-style %}{% endblock %}
 
 {% block content %} <!--content 블록을 재정의-->
-    <!-- Sweeper 슬라이더 -->
-    <!-- Slider main container -->
-    <div class="swiper-container">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            <div class="swiper-slide">
-                <img width="800px" height="600px" class="swiper-lazy" src="https://hiphop-n-more.com/wp-content/uploads/2021/05/j-cole-the-off-season-stream-scaled.jpg">
-            </div>
-            <div class="swiper-slide">
-                <img width="800px" height="600px" class="swiper-lazy" src="https://www.gannett-cdn.com/-mm-/479c959a6544500ac7b5ec769b357415457154ef/c=0-14-680-398/local/-/media/2017/04/14/USATODAY/USATODAY/636277278048295560-kendrick.jpg?width=660&height=373&fit=crop&format=pjpg&auto=webp">
-            </div>
+    <!-- 이미지 슬라이더 -->
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+      <!-- Indicators -->
+      <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0"></li><!--class="active"-->
+        <li data-target="#demo" data-slide-to="1"></li>
+      </ul>
+
+      <!-- The slideshow -->
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img width="1100" height="500" alt="JCole" src="https://hiphop-n-more.com/wp-content/uploads/2021/05/j-cole-the-off-season-stream-scaled.jpg">
+          <div class="carousel-caption">
+            <h3>J Cole</h3>
+            <p>The Off Season</p>
+          </div>
         </div>
-        <!-- pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Iscrollbar -->
-        <div class="swiper-scrollbar"></div>
+        <div class="carousel-item">
+          <img width="1100" height="500" alt="KendrickLamar" src="https://www.gannett-cdn.com/-mm-/479c959a6544500ac7b5ec769b357415457154ef/c=0-14-680-398/local/-/media/2017/04/14/USATODAY/USATODAY/636277278048295560-kendrick.jpg?width=660&height=373&fit=crop&format=pjpg&auto=webp">
+          <div class="carousel-caption">
+            <h3>Kendrick Lamar</h3>
+            <p>DAMN.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left and right controls -->
+      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+
     </div>
+
+
+
+
 
     <br style="margin: 20px 0px 20px 0px;">
 

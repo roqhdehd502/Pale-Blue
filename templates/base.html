@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <title>{% block title %} Pale Blue&nbsp;:&nbsp; {% endblock %}</title> <!--block 태그를 통해 공통되는 부분에 적용한다-->
 
-    <!-- sweeper 컨테이너 크기 설정 -->
-    <style type="text/css">
-        .swiper-container {
-            max-width: 800px;
-            max-height: 400px;
-            min-width: 300px;
-            min-height: 150px;
-            width: auto;
-            height: auto;
-        }
-    </style>
+    <style>
+      /* Make the image fully responsive */
+      .carousel-inner img {
+        width: 100%;
+        height: 100%;
+      }
+     </style>
 
     <!-- a 태그 텍스트 색상 설정 -->
     <style type="text/css">
@@ -27,6 +23,7 @@
     {% block extra-style %}{% endblock %}
 </head>
 <body style="padding-top:90px;">
+    {% load static %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top" style="border-bottom: 5px solid #afeeee;">
         <span class="navbar-brand mx-5 mb-0">
             <a class="nav-link text-white font-weight-bold" href="{% url 'home' %}">Pale Blue</a>
@@ -89,16 +86,19 @@
                     <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
                         {% firstof user.get_short_name user.get_username %}&ensp;
                     </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">My Page</a>
-                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                        <a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <h3 class="dropdown-header">John Doe</h3>
+                        <img style="width:300px; height:300px;" class="card-img-top rounded-circle" src="{% static 'img/user_icon_default.png' %}" onerror="{% static 'img/user_icon_default.png' %}" alt="user">
+                        <hr>
+                        <a class="dropdown-item" href="#">마이페이지</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
+                        <a class="dropdown-item" href="{% url 'password_change' %}">비밀번호 변경</a>
                     </div>
                     {% else %} <!--로그인 상태가 아닐때-->
                     <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
-                        로그인하기&ensp;
+                        Login&ensp;
                     </a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="{% url 'login' %}">Login</a>
                         <a class="dropdown-item" href="{% url 'register' %}">Register</a>
                     </div>
@@ -177,39 +177,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <!-- swiper 슬라이드 바 -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        const swiper = new Swiper('.swiper-container', {
-          // Optional parameters
-          direction: 'vertical',
-          loop: true,
-
-          // If we need pagination
-          pagination: {
-            el: '.swiper-pagination',
-          },
-
-          // Navigation arrows
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-
-          // And if we need scrollbar
-          scrollbar: {
-            el: '.swiper-scrollbar',
-          },
-
-          autoplay: {
-            delay: 7000,
-          },
-        });
-    </script>
 
     {% block extra-script %}
     {% endblock %}
