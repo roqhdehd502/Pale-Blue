@@ -43,11 +43,7 @@
             <!--<span class="material-icons">thumb_up</span>{{ post.like }}-->
         </div>
         <div class="col-md-2" align="center">
-            {% if post.owner == "309al" %}
-                관리자
-            {% else %}
-                {{ post.owner }}
-            {% endif %}
+            {{ post.owner.last_name }}
         </div>
         <div class="col-md-2" align="center">
             {{ post.create_dt|date:"Y.m.d" }}

@@ -5,44 +5,94 @@
 
 {% block content %}
 
-    <h1>New User Registration</h1>
-    <p class="font-italic">Please enter your username and password twice.</p>
+    <h1>회원가입</h1>
+    <p class="font-italic">회원님의 정보를 정확하게 입력해주세요.</p>
 
     {% if form.errors %}
     <div class="alert alert-danger">
-        <div class="font-weight-bold">Wrong! Please correct the error(s) below.</div>
+        <div class="font-weight-bold">입력정보가 정확하지 않습니다! 다시 입력해주세요.</div>
         {{ form.errors }}
     </div>
     {% endif %}
 
-    <form action="." method="post" class="card pt-3">{% csrf_token %}
-
+    <form action="." method="post" class="card pt-3">
+        {% csrf_token %}
+        <!--아이디 입력-->
         <div class="form-group row">
-            {{ form.username|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+            <div class="col-form-label col-sm-3 ml-3 font-weight-bold">
+                ID
+            </div>
+            <!--{{ form.username|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}-->
             <div class="col-sm-5">
                 {{ form.username|add_class:"form-control"|attr:"autofocus" }}
             </div>
         </div>
+        <!--비밀번호 입력-->
         <div class="form-group row">
+            <div class="col-form-label col-sm-3 ml-3 font-weight-bold">
+                비밀번호
+            </div>
+<!--
             {{ form.password1|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+-->
             <div class="col-sm-5">
                 {{ form.password1|add_class:"form-control" }}
             </div>
         </div>
+        <!--비밀번호 확인-->
         <div class="form-group row">
+            <div class="col-form-label col-sm-3 ml-3 font-weight-bold">
+                비밀번호 확인
+            </div>
+<!--
             {{ form.password2|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+-->
             <div class="col-sm-5">
                 {{ form.password2|add_class:"form-control" }}
             </div>
         </div>
-
+        <!--이메일 입력-->
+        <div class="form-group row">
+            <div class="col-form-label col-sm-3 ml-3 font-weight-bold">
+                이메일
+            </div>
+<!--
+            {{ form.email|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+-->
+            <div class="col-sm-5">
+                {{ form.email|add_class:"form-control" }}
+            </div>
+        </div>
+        <!--실명 입력-->
+        <div class="form-group row">
+            <div class="col-form-label col-sm-3 ml-3 font-weight-bold">
+                이름
+            </div>
+<!--
+            {{ form.first_name|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+-->
+            <div class="col-sm-5">
+                {{ form.first_name|add_class:"form-control" }}
+            </div>
+        </div>
+        <!--닉네임 입력-->
+        <div class="form-group row">
+            <div class="col-form-label col-sm-3 ml-3 font-weight-bold">
+                닉네임
+            </div>
+<!--
+            {{ form.last_name|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold" }}
+-->
+            <div class="col-sm-5">
+                {{ form.last_name|add_class:"form-control" }}
+            </div>
+        </div>
+        <!--입력 버튼-->
         <div class="form-group">
             <div class="offset-sm-3 col-sm-5">
                 <input type="submit" value="Register" class="btn btn-info"/>
             </div>
         </div>
-
     </form>
-
 {% endblock %}
 

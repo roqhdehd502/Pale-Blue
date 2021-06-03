@@ -29,4 +29,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')), # 장고의 URLconf 가져오기
     path('accounts/register/', UserCreateView.as_view(), name='register'), # 가입처리 URL
     path('accounts/register/done/', UserCreateDoneTV.as_view(), name='register_done'), # 계정생성완료 URL
+    path('mypage/', include('mypage.urls')), # 마이 페이지
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # 기존 URL패턴에 static() 함수가 반환하는 URL 패턴을 추가

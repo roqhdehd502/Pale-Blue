@@ -37,12 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bookmark.apps.BookmarkConfig',
-    'blog.apps.BlogConfig',
+
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
-    'photo.apps.PhotoConfig',
     'widget_tweaks',
+
+    'bookmark.apps.BookmarkConfig',
+    'blog.apps.BlogConfig',
+    'photo.apps.PhotoConfig',
+    'mypage.apps.MypageConfig',
 ]
 
 MIDDLEWARE = [
@@ -141,10 +144,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # 태그 달기
 TAGGIT_CASE_INSENSITIVE = True
-TAGGIT_LIMIT = 50 # default = 10
+TAGGIT_LIMIT = 10 # default = 10
 
 # 댓글 달기
-DISQUS_SHORTNAME = 'pydjango-web-programming'
+DISQUS_SHORTNAME = '댓글을 남겨주세요.'
 DISQUS_MY_DOMAIN = 'http://localhost:8000'
 
 # 로그인 인증
