@@ -19,6 +19,6 @@ from mypage import views
 app_name = 'mypage'
 
 urlpatterns = [
-    # Example :  /blog/
-    #path('', views.PostLV.as_view(), name='index'), # URL 요청을 처리할 뷰 클래스를 PostLV로 지정
+    # Example :  /mypage/
+    path('', views.MypageMain.as_view(), name='mypage_main'), # 마이페이지 메인
 ]
