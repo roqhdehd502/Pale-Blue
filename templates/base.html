@@ -2,15 +2,29 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>{% block title %} Pale Blue&nbsp;:&nbsp; {% endblock %}</title> <!--block 태그를 통해 공통되는 부분에 적용한다-->
 
-    <style>
+    <!--부트스트랩 CSS-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!--부트스트랩 icon CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <!-- 구글 머터리얼 디자인 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--부트스트랩 carousel 슬라이더-->
+    <style type="text/css">
       /* Make the image fully responsive */
       .carousel-inner img {
         width: 100%;
         height: 100%;
       }
-     </style>
+    </style>
 
     <!-- a 태그 텍스트 색상 설정 -->
     <style type="text/css">
@@ -89,7 +103,7 @@
                     <div class="dropdown-menu dropdown-menu-right">
 <!--                        <img style="width:300px; height:300px;" class="card-img-top rounded-circle" src="{% static 'img/user_icon_default.png' %}" onerror="{% static 'img/user_icon_default.png' %}" alt="user">
                         <hr>-->
-                        <a class="dropdown-item" href="#">마이페이지</a>
+                        <a class="dropdown-item" href="{% url 'mypage:mypage_main' %}">마이페이지</a>
                         <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
                         <a class="dropdown-item" href="{% url 'password_change' %}">비밀번호 변경</a>
                     </div>
@@ -150,7 +164,7 @@
                     <div class="col-lg-12">
                         <div>  <!--class="copyright-txt"-->
                             Copyright&copy; 2021 NMW. All Rights Reserved.<br>
-                            <a href="http://bootstrapk.com/">
+                            <a href="https://getbootstrap.com/">
                                 BootStrap
                             </a>
                             &nbsp;|&nbsp;
@@ -166,16 +180,12 @@
         <br style="margin:10px 0 10px 0px;">
     </footer>
 
-    <!-- 제이쿼리, 부트스트랩, AJAX 설정 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- 제이쿼리/AJAX 스크립트 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- 구글 머터리얼 디자인 -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--부트스트랩 스크립트-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     {% block extra-script %}
     {% endblock %}

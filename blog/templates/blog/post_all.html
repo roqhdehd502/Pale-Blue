@@ -7,31 +7,33 @@
         <h2>Community</h2>
     </div>
 
-    <hr style="margin:10px 0px 10px 0px;">
+    <hr style="margin:10px 0px 10px 0px; border-top: 5px solid #afeeee;">
 
-    <!--등록된 게시글 리스트-->
     <!--공지사항-->
     {% for post in posts %}
-    {% if post.category == "공지사항" %}
-    <div class="row" style="font-weight:bold;">
-        <div class="col-md-2" align="center">
-            공지사항
+        {% if post.category == "공지사항" %}
+        <div class="row" style="font-weight:bold;">
+            <div class="col-md-2" align="center">
+                공지사항
+            </div>
+            <div class="col-md-6">
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            </div>
+            <div class="col-md-2" align="center">
+                관리자
+            </div>
+            <div class="col-md-2" align="center">
+                {{ post.create_dt|date:"Y.m.d" }}
+            </div>
         </div>
-        <div class="col-md-6">
-            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-        </div>
-        <div class="col-md-2" align="center">
-            관리자
-        </div>
-        <div class="col-md-2" align="center">
-            {{ post.create_dt|date:"Y.m.d" }}
-        </div>
-    </div>
 
-    <hr style="margin:10px 0 10px 0px;">
-    {% endif %}
+        <hr style="margin:10px 0 10px 0px;">
+        {% endif %}
     {% endfor %}
+
     <!--인기글(공지사항 제외)-->
+
+
     <!--게시글 총합-->
     {% for post in posts %}
     <div class="row">
@@ -40,7 +42,7 @@
         </div>
         <div class="col-md-6">
             <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>&nbsp;&nbsp;
-            <!--<span class="material-icons">thumb_up</span>{{ post.like }}-->
+            <i class="fas fa-thumbs-up"></i>&nbsp;7
         </div>
         <div class="col-md-2" align="center">
             {{ post.owner.last_name }}
@@ -57,14 +59,16 @@
     <div align="center" align="center">
         <span>
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+                <a href="?page={{ page_obj.previous_page_number }}"><i class="fas fa-angle-left"></i>&nbsp;이전 페이지</a>
             {% endif %}
 
-            {{ page_obj.number }}&nbsp;/&nbsp;{{ page_obj.paginator.num_pages }}
+            {{ page_obj.number }}&nbsp;<b>/</b>&nbsp;{{ page_obj.paginator.num_pages }}
 
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+                <a href="?page={{ page_obj.next_page_number }}"><i class="fas fa-angle-left"></i>&nbsp;다음 페이지</a>
             {% endif %}
         </span>
     </div>
+
+    <br style="margin: 10px 0px 10px 0px;">
 {% endblock %}

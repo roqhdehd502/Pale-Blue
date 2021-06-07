@@ -18,17 +18,25 @@
       </div>
     </div>
 
-    <!--게시글 요약 정보-->
+    <br style="margin: 3px 0px 10px 0px;">
+
+    <!--작성자-->
     <div class="row">
       <div class="col-md-12">
-        {{ object.owner.last_name }}
+        <h5>{{ object.owner.last_name }}님</h5>
       </div>
     </div>
+
     <br style="margin: 10px 0px 10px 0px;">
+
+    <!--작성일 및 조회수/추천수-->
     <div class="row" style="background-color:#f0f0f0; border-top: 3px solid #afeeee; padding: 5px 0px 5px 0px;">
-      <div class="col-md-12">
-        {{ object.create_dt|date:"Y.m.d" }}&nbsp;&nbsp;|&nbsp;&nbsp;
-        조회수&nbsp;:&nbsp;{{ object.hit }}
+      <div class="col-md-6" align="left">
+        <i class="fa fa-eye"></i>&nbsp;{{ object.hit }}&nbsp;&nbsp;|&nbsp;&nbsp;
+        <i class="fas fa-thumbs-up"></i>&nbsp;7
+      </div>
+      <div class="col-md-6" align="right">
+        <i class="fas fa-clock"></i>&nbsp;{{ object.create_dt|date:"Y.m.d" }}
       </div>
     </div>
 
@@ -37,25 +45,28 @@
       <p style="white-space: normal;">{{ object.content|linebreaks }}</p>
     </div>
 
-    <!--블로그 이전글/다음글 넘기는 링크 버튼-->
-    <div class="row">
-      <div class="col-md-12" style="background-color:#f0f0f0; padding: 5px 0px 5px 0px;">
-        {% if object.get_next %}
-        <a href="{{ object.get_next.get_absolute_url }}" title="View previous post">
-          <i class="fas fa-arrow-circle-left"></i> {{ object.get_next }}
-        </a>
-        {% endif %}
+    <!--게시글 추천-->
+    <div class="row justify-content-center">
+      <button type="button" class="btn btn-info">
+        <i class="fas fa-thumbs-up"></i>&nbsp;
+        7&nbsp;
+        추천
+      </button>
+    </div>
 
-        {% if object.get_previous %}|
-        <a href="{{ object.get_previous.get_absolute_url }}" title="View next post">
-          {{ object.get_previous }} <i class="fas fa-arrow-circle-right"></i>
-        </a>
-        {% endif %}
+    <br style="margin: 10px 0px 10px 0px;">
+
+    <!--목록 및 신고-->
+    <div class="row" style="background-color:#f0f0f0; padding: 5px 0px 5px 0px; border-bottom: 3px solid #afeeee;">
+      <div class="col-md-6" align="left">
+        <button type="button" class="btn btn-outline-info btn-sm"><i class="fas fa-list"></i>&nbsp;목록</button>&nbsp;
+        <button type="button" class="btn btn-outline-danger btn-sm"><i class="fas fa-bell-slash"></i>&nbsp;신고</button>
       </div>
     </div>
 
-    <br>
+    <br style="margin: 10px 0px 10px 0px;">
 
+    <!--태그-->
     <div>
       <b>TAGS</b> <i class="fas fa-tag"></i>
       {% load taggit_templatetags2_tags %}
@@ -69,9 +80,33 @@
       </a>
     </div>
 
-    <hr>
+    <hr style="margin: 10px 0px 10px 0px;">
 
+    <!--disqus 댓글 API-->
     <div id="disqus_thread"></div>
+
+    <br style="margin: 10px 0px 10px 0px;">
+
+    <!--이전글 및 다음글-->
+    <div class="row" style="background-color:#f0f0f0; padding: 5px 0px 5px 0px; border-top: 3px solid #afeeee; border-bottom: 3px solid #afeeee;">
+      <div class="col-md-12">
+        {% if object.get_next %}
+        <a href="{{ object.get_next.get_absolute_url }}" title="다음글">
+          <i class="fas fa-arrow-circle-up"></i>&nbsp;{{ object.get_next }}
+        </a>
+        {% endif %}
+      </div>
+      <br style="margin: 10px 0px 10px 0px;">
+      <div class="col-md-12">
+        {% if object.get_previous %}
+        <a href="{{ object.get_previous.get_absolute_url }}" title="이전글">
+          <i class="fas fa-arrow-circle-down"></i>&nbsp;{{ object.get_previous }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <br style="margin:10px 0px 10px 0px;">
   </div>
 {% endblock %}
 
