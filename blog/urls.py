@@ -26,7 +26,11 @@ urlpatterns = [
     path('post/', views.PostLV.as_view(), name='post_list'),
 
     # Example : /blog/post/django-example/
-    re_path(r'^post/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'), # 한글을 고려한 슬러그처리
+    path('post/<int:pk>', views.PostDV.as_view(), name='post_detail'), # 고유 글번호를 이용한 처리
+    #re_path(r'^post/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'), 한글을 고려한 슬러그처리
+
+    # Example : /blog/post/99/like
+    path('post/<int:pk>/like/', views.like_post, name='like_post', ),  # 추천 처리
 
     # Example : /blog/archive/
     path('archive/', views.PostAV.as_view(), name='post_archive'),

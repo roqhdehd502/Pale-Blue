@@ -1,19 +1,22 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.template.context_processors import request
 from django.views.generic import ListView, DetailView, TemplateView, FormView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
 from django.conf import settings
-
 from blog.models import Post
 
 from blog.forms import PostSearchForm
 from django.db.models import Q
-from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.urls import reverse_lazy
 from mysite.views import OwnerOnlyMixin
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -32,7 +35,8 @@ class PostDV(DetailView):
         context = super().get_context_data(**kwargs)
         context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}" # f-스트링: 문자열에서 특정 부분만 바꾸고 나머지 부분은 일정하다고 할때, 문자열 포매팅을 이용해서 이쁘게 출력
         context['disqus_id'] = f"post-{self.object.id}-{self.object.slug}"
-        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        # context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.id}"
         context['disqus_title'] = f"{self.object.slug}"
 
         return context
@@ -73,7 +77,6 @@ class TaggedObjectLV(ListView):
         context = super().get_context_data(**kwargs)
         context['tagname'] = self.kwargs['tag']
         return context
-
 
 # FormView
 class SearchFormView(FormView):
@@ -117,3 +120,12 @@ class PostUpdateView(OwnerOnlyMixin, UpdateView):
 class PostDeleteView(OwnerOnlyMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('blog:index')
+
+@login_required(login_url='mysite:login')
+def like_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.user == post.owner:
+        messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
+    else:
+        post.like.add(request.user)
+    return redirect('blog:post_detail', pk=post.id)

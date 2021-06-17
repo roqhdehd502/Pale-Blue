@@ -100,11 +100,11 @@
                     </div>
                     {% else %} <!--로그인 상태가 아닐때-->
                     <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
-                        Login&ensp;
+                        <i class="fa fa-user"></i>&nbsp;로그인&ensp;
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                        <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                        <a class="dropdown-item" href="{% url 'login' %}">로그인</a>
+                        <a class="dropdown-item" href="{% url 'register' %}">회원가입</a>
                     </div>
                     {% endif %}
                 </li>

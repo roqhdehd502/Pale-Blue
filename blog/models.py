@@ -13,10 +13,10 @@ class Post(models.Model):
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True) # 작성일자
     modify_dt = models.DateTimeField('MODIFY DATE', auto_now=True) # 수정일자
     tags = TaggableManager(blank=True) # 태그
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='OWNER', blank=True, null=True) # 작성자
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='OWNER', blank=True, null=True, related_name='owner_post') # 작성자
     category = models.CharField('CATEGORY', max_length=20, null=True) # 카테고리
     hit = models.PositiveIntegerField(default=0, null=True) # 조회수
-    #like = models.PositiveIntegerField(default=0, null=True) # 추천수
+    like = models.ManyToManyField(User, related_name='like_post') # 추천수
 
     class Meta: # 필드 속성 외 필요한 파라미터를 설정하는 내부 클래스
         verbose_name = 'post' # 테이블의 단수 별칭 설정
@@ -25,10 +25,10 @@ class Post(models.Model):
         ordering = ('-create_dt',) # 모델 객체의 리스트 출력 시 create_dt 컬럼을 기준으로 내림차순 정렬
 
     def __str__(self):
-        return '[{}] {}'.format(self.title, self.owner)
+        return self.title
 
-    def get_absolute_url(self): # 해당 메소드가 정의된 객체를 지칭하는 URL을 반환
-        return reverse('blog:post_detail', args=(self.slug,))
+    # def get_absolute_url(self, pk):  해당 메소드가 정의된 객체를 지칭하는 URL을 반환
+    #     return reverse('blog:post_detail', args=(self.slug,))
 
     def get_previous(self): # 메소드 내에서 장고의 내장 함수인 get_privious_by_create_dt()를 호출
         return self.get_previous_by_create_dt()
@@ -36,8 +36,13 @@ class Post(models.Model):
     def get_next(self): # -create_dt 컬럼을 기준으로 다음 포스트를 반환
         return self.get_next_by_create_dt()
 
+    # @property
+    # def update_counter(self):
+    #     self.hit = self.hit + 1
+    #     self.save()
+
     @property
-    def update_counter(self):
+    def hit_counter(self):  # 조회수 카운팅 기능 OLD
         self.hit = self.hit + 1
         self.save()
 
